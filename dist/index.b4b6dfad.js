@@ -27317,10 +27317,13 @@ const MainView = ()=>{
             id: 1,
             title: "Silence of the Lambs",
             description: "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
-            genre: {
-                name: "Thriller",
-                description: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
-            },
+            genres: [
+                {
+                    id: "6481fc12a32c9er6f05f50cb",
+                    name: "Thriller",
+                    description: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
+                }
+            ],
             director: {
                 name: "Jonathan Demme",
                 bio: "Robert Jonathan Demme was an American director, producer, and screenwriter.",
@@ -27328,8 +27331,7 @@ const MainView = ()=>{
                 death: "2017"
             },
             image: "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
-            featured: false,
-            genres: []
+            featured: false
         },
         {
             director: {
@@ -27340,11 +27342,11 @@ const MainView = ()=>{
             },
             id: 2,
             title: "Oldboy",
-            description: "...",
+            description: "After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.",
             genres: [
                 {
                     id: "6481fc12a32c9659f05f50cb",
-                    name: "thriller",
+                    name: "Thriller",
                     description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
                 }
             ],
@@ -27361,11 +27363,11 @@ const MainView = ()=>{
             },
             id: 3,
             title: "Taxi Driver",
-            description: "...",
+            description: "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action.",
             genres: [
                 {
                     id: "6481fc12a32c9659f05f50cc",
-                    name: "thriller",
+                    name: "Thriller",
                     description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
                 }
             ],
@@ -27381,11 +27383,11 @@ const MainView = ()=>{
             },
             id: 4,
             title: "L\xe9on: The Professional",
-            description: "...",
+            description: "12-year-old Mathilda is reluctantly taken in by L\xe9on, a professional assassin, after her family is murdered. An unusual relationship forms as she becomes his prot\xe9g\xe9e and learns the assassin's trade.",
             genres: [
                 {
                     id: "6481fc12a32c9659f05f50cd",
-                    name: "action",
+                    name: "Action",
                     description: "Associated with particular types of spectacle (e.g., explosions, chases, combat)"
                 }
             ],
@@ -27401,11 +27403,11 @@ const MainView = ()=>{
             },
             id: 5,
             title: "The Last Samurai",
-            description: "...",
+            description: "An American military advisor embraces the Samurai culture he was hired to destroy after he is captured in battle.",
             genres: [
                 {
                     "_id": "6481fc12a32c9659f05f50ce",
-                    "name": "historical",
+                    "name": "Historical",
                     "description": "Films that either provide more-or-less accurate representations of historical accounts or depict fictional narratives placed inside an accurate depiction of a historical setting."
                 }
             ],
@@ -27419,14 +27421,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 112,
+        lineNumber: 114,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 117,
+        lineNumber: 119,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27437,16 +27439,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 123,
+                lineNumber: 125,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 121,
+        lineNumber: 123,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "XqbBRje08UFba/JlnRAkoZwqL+g=");
+_s(MainView, "gVyVLhvAyKJWxB0Z19pql5RhU0I=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27578,14 +27580,14 @@ const MovieView = ({ movie , onBackClick  })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director: "
+                        children: "Description: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 13,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.director.name
+                        children: movie.description
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 14,
@@ -27595,6 +27597,50 @@ const MovieView = ({ movie , onBackClick  })=>{
             }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
                 lineNumber: 12,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Genre: "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 17,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.genres[0].name
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 18,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 16,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Director: "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 21,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.director.name
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 22,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 20,
                 columnNumber: 7
             }, undefined)
         ]
