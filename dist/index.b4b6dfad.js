@@ -27312,123 +27312,37 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "Silence of the Lambs",
-            description: "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
-            genres: [
-                {
-                    id: "6481fc12a32c9er6f05f50cb",
-                    name: "Thriller",
-                    description: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
-                }
-            ],
-            director: {
-                name: "Jonathan Demme",
-                bio: "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-                birth: "1944",
-                death: "2017"
-            },
-            image: "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
-            featured: false
-        },
-        {
-            director: {
-                name: "Park Chan-wook",
-                bio: "...",
-                yearBirth: 1963,
-                yearDeath: null
-            },
-            id: 2,
-            title: "Oldboy",
-            description: "After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.",
-            genres: [
-                {
-                    id: "6481fc12a32c9659f05f50cb",
-                    name: "Thriller",
-                    description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
-                }
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg",
-            Description: "After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.",
-            featured: false
-        },
-        {
-            director: {
-                name: "Martin Scorsese",
-                bio: "An American film director, producer, screenwriter and actor. Scorsese emerged as one of the major figures of the New Hollywood era.",
-                yearBirth: 1942,
-                yearDeath: null
-            },
-            id: 3,
-            title: "Taxi Driver",
-            description: "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action.",
-            genres: [
-                {
-                    id: "6481fc12a32c9659f05f50cc",
-                    name: "Thriller",
-                    description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
-                }
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/3/33/Taxi_Driver_%281976_film_poster%29.jpg",
-            featured: false
-        },
-        {
-            director: {
-                name: "Luc Besson",
-                bio: "...",
-                yearBirth: 1959,
-                yearDeath: null
-            },
-            id: 4,
-            title: "L\xe9on: The Professional",
-            description: "12-year-old Mathilda is reluctantly taken in by L\xe9on, a professional assassin, after her family is murdered. An unusual relationship forms as she becomes his prot\xe9g\xe9e and learns the assassin's trade.",
-            genres: [
-                {
-                    id: "6481fc12a32c9659f05f50cd",
-                    name: "Action",
-                    description: "Associated with particular types of spectacle (e.g., explosions, chases, combat)"
-                }
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/0/03/Leon-poster.jpg",
-            featured: false
-        },
-        {
-            director: {
-                name: "Edward Zwick",
-                bio: "...",
-                yearBirth: 1952,
-                yearDeath: null
-            },
-            id: 5,
-            title: "The Last Samurai",
-            description: "An American military advisor embraces the Samurai culture he was hired to destroy after he is captured in battle.",
-            genres: [
-                {
-                    "_id": "6481fc12a32c9659f05f50ce",
-                    "name": "Historical",
-                    "description": "Films that either provide more-or-less accurate representations of historical accounts or depict fictional narratives placed inside an accurate depiction of a historical setting."
-                }
-            ],
-            image: "https://upload.wikimedia.org/wikipedia/en/c/c6/The_Last_Samurai.jpg",
-            featured: false
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    (0, _react.useEffect)(()=>{
+        fetch("https://movie-api-zy6n.onrender.com/movies").then((response)=>response.json()).then((data)=>{
+            console.log(data);
+            const moviesFromApi = data.map((movie)=>{
+                return {
+                    id: movie._id,
+                    title: movie.title,
+                    description: movie.description,
+                    genres: movie.genres,
+                    director: movie.director,
+                    image: movie.imageURL
+                };
+            });
+            setMovies(moviesFromApi);
+        });
+    }, []);
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 114,
+        lineNumber: 32,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 119,
+        lineNumber: 37,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27439,16 +27353,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 125,
+                lineNumber: 43,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 123,
+        lineNumber: 41,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "gVyVLhvAyKJWxB0Z19pql5RhU0I=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
