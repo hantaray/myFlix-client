@@ -1,113 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-      id: 1,
-      title: "Silence of the Lambs",
-      description: "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
-      genres: [
-        {
-          id: "6481fc12a32c9er6f05f50cb",
-          name: "Thriller",
-          description: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience."
-        }
-      ],
-      director: {
-        name: "Jonathan Demme",
-        bio: "Robert Jonathan Demme was an American director, producer, and screenwriter.",
-        birth: "1944",
-        death: "2017"
-      },
-      image: "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
-      featured: false
-    },
-    {
-      director: {
-        name: "Park Chan-wook",
-        bio: "...",
-        yearBirth: 1963,
-        yearDeath: null
-      },
-      id: 2,
-      title: "Oldboy",
-      description: "After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.",
-      genres: [
-        {
-          id: "6481fc12a32c9659f05f50cb",
-          name: "Thriller",
-          description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
-        }
-      ],
-      image: "https://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg",
-      Description: "After being kidnapped and imprisoned for fifteen years, Oh Dae-Su is released, only to find that he must find his captor in five days.",
-      featured: false
-    },
-    {
-      director: {
-        name: "Martin Scorsese",
-        bio: "An American film director, producer, screenwriter and actor. Scorsese emerged as one of the major figures of the New Hollywood era.",
-        yearBirth: 1942,
-        yearDeath: null
-      },
-      id: 3,
-      title: "Taxi Driver",
-      description: "A mentally unstable veteran works as a nighttime taxi driver in New York City, where the perceived decadence and sleaze fuels his urge for violent action.",
-      genres: [
-        {
-          id: "6481fc12a32c9659f05f50cc",
-          name: "Thriller",
-          description: "Films that evoke excitement and suspense in the audience. The suspense element found in most films' plots is particularly exploited by the filmmaker in this genre. Tension is created by delaying what the audience sees as inevitable, and is built through situations that are menacing or where escape seems impossible."
-        }
-      ],
-      image: "https://upload.wikimedia.org/wikipedia/en/3/33/Taxi_Driver_%281976_film_poster%29.jpg",
-      featured: false
-    },
-    {
-      director: {
-        name: "Luc Besson",
-        bio: "...",
-        yearBirth: 1959,
-        yearDeath: null
-      },
-      id: 4,
-      title: "Léon: The Professional",
-      description: "12-year-old Mathilda is reluctantly taken in by Léon, a professional assassin, after her family is murdered. An unusual relationship forms as she becomes his protégée and learns the assassin's trade.",
-      genres: [
-        {
-          id: "6481fc12a32c9659f05f50cd",
-          name: "Action",
-          description: "Associated with particular types of spectacle (e.g., explosions, chases, combat)"
-        }
-      ],
-      image: "https://upload.wikimedia.org/wikipedia/en/0/03/Leon-poster.jpg",
-      featured: false
-    },
-    {
-      director: {
-        name: "Edward Zwick",
-        bio: "...",
-        yearBirth: 1952,
-        yearDeath: null
-      },
-      id: 5,
-      title: "The Last Samurai",
-      description: "An American military advisor embraces the Samurai culture he was hired to destroy after he is captured in battle.",
-      genres: [
-        {
-          "_id": "6481fc12a32c9659f05f50ce",
-          "name": "Historical",
-          "description": "Films that either provide more-or-less accurate representations of historical accounts or depict fictional narratives placed inside an accurate depiction of a historical setting."
-        }
-      ],
-      image: "https://upload.wikimedia.org/wikipedia/en/c/c6/The_Last_Samurai.jpg",
-      featured: false
-    }
-  ]);
+  const [movies, setMovies] = useState([]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    fetch("https://movie-api-zy6n.onrender.com/movies")
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.title,
+            description: movie.description,
+            genres: movie.genres,
+            director: movie.director,
+            image: movie.imageURL
+          };
+        });
+
+        setMovies(moviesFromApi);
+      });
+  }, []);
 
   if (selectedMovie) {
     return (
