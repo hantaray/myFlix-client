@@ -11,7 +11,6 @@ export const MainView = () => {
     fetch("https://movie-api-zy6n.onrender.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         const moviesFromApi = data.map((movie) => {
           return {
             id: movie._id,
