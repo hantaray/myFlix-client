@@ -14,6 +14,8 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
+    if (!token) return;
+
     fetch("https://movie-api-zy6n.onrender.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -40,7 +42,8 @@ export const MainView = () => {
         <>
           <Col md={5}>
             Login:
-            <LoginView onLoggedIn={(user) => setUser(user)} />
+            <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }}
+            />
             Register:
             <SignupView />
           </Col>
