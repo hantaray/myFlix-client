@@ -41086,7 +41086,7 @@ const LoginView = ({ onLoggedIn  })=>{
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
                 onLoggedIn(data.user, data.token);
-            } else alert("User or Password incorrect");
+            } else alert("No such user");
         }).catch((e)=>{
             alert("Something went wrong. Error: " + e);
         });
