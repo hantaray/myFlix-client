@@ -17,8 +17,6 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-
-  console.log(user);
   useEffect(() => {
     if (!token) return;
 
@@ -139,7 +137,7 @@ export const MainView = () => {
                   <Navigate to="/login" replace />
                 ) : (
                   <>
-                    <ProfileView user={user} token={token} movies={movies} />
+                    <ProfileView username={user.username} token={token} movies={movies} />
                   </>
                 )}
               </>
