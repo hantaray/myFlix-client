@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Form } from "react-bootstrap";
+import { Button, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
 
