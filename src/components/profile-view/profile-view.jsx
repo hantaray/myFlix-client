@@ -3,19 +3,13 @@ import { Button, Card, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
-  // const [username, setUsername] = useState(username);
+export const ProfileView = ({ username, token, movies }) => {
   const [updatedUsername, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [user, setUser] = useState({});
-  // const [favoriteMovies, setFavoriteMovies] = useState([]);
-
-  // const favoriteMovies = movies.filter(m => user.favoriteMovies.includes(m.id));
-  // console.log('favoriteMovies', favoriteMovies)
-
-  // setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
     if (!token) return;
@@ -25,13 +19,12 @@ export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        // console.log('userfavs', user.favoriteMovies)
         setUser(user);
         setUsername(user.username);
         setPassword(user.password);
         setEmail(user.email);
         setBirthday(user.birthday);
-        // setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
       });
   }, [token]);
 
@@ -44,13 +37,9 @@ export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        // console.log('userfavs', user.favoriteMovies)
         setUser(user);
-        // console.log('user.username', user.username)
-        console.log('updatedUsername', updatedUsername)
-        console.log('updateduser', user)
         localStorage.setItem("user", JSON.stringify(user));
-        // setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
       });
   }
 
@@ -75,7 +64,6 @@ export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
       if (response.ok) {
         updateUser();
         alert("Update successful");
-        console.log("updatedUser", user);
         window.location.reload();
       } else {
         alert("Update failed");
@@ -153,14 +141,14 @@ export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
           Submit
         </Button>
       </Form>
-      {/* 
+
       <>
         {favoriteMovies.map((movie) => (
           <Col className="mb-4" key={movie.id} md={3}>
             <MovieCard user={user} token={token} movie={movie} />
           </Col>
         ))}
-      </> */}
+      </>
 
       <Form onSubmit={unregister}>
         <Button variant="danger" type="submit">
