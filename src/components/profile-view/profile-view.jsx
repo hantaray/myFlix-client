@@ -3,7 +3,7 @@ import { Button, Card, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ username, token, movies }) => {
+export const ProfileView = ({ username, token, movies, onLoggedOut }) => {
   // const [username, setUsername] = useState(username);
   const [updatedUsername, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -94,8 +94,10 @@ export const ProfileView = ({ username, token, movies }) => {
       }
     }).then((response) => {
       if (response.ok) {
+        setUser(null);
+        localStorage.clear();
         alert("Successful unregistered");
-        window.location.reload();
+        window.location.replace('/login');
       } else {
         alert("Update failed");
       }
