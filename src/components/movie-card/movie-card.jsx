@@ -1,14 +1,61 @@
 import { PropTypes } from "prop-types";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Button, Card } from "react-bootstrap";
 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ user, token, movie }) => {
+  function addToFav(movieTitle) {
+    console.log('movieTitle', movieTitle)
+    fetch(`https://movie-api-zy6n.onrender.com/users/${user.username}/movies/${movieTitle}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      console.log('response', response)
+      if (response.ok) {
+        alert("Added to favorites");
+        window.location.reload();
+      } else {
+        alert("Update failed");
+      }
+    });
+  }
+
+  function removeFromFav(movieTitle) {
+    console.log('movieTitle', movieTitle)
+    fetch(`https://movie-api-zy6n.onrender.com/users/${user.username}/movies/${movieTitle}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      console.log('response', response)
+      if (response.ok) {
+        alert("Removed from favorites");
+        window.location.reload();
+      } else {
+        alert("Update failed");
+      }
+    });
+  }
+
   return (
-    <Card className="h-100" onClick={() => onMovieClick(movie)}>
-      <Card.Img variant="top" src={movie.image} />
+    <Card className="h-100">
+      <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+        <Card.Img variant="top" src={movie.image} />
+      </Link>
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+          <Button variant="link">Open</Button>
+        </Link>
+        <Button onClick={() => addToFav(movie.title)}>+</Button>
+        <Button variant="danger" onClick={() => removeFromFav(movie.title)}>X</Button>
       </Card.Body>
-    </Card>
+    </Card >
   );
 };
 
@@ -30,7 +77,5 @@ MovieCard.propTypes = {
       bio: PropTypes.string
     }),
     image: PropTypes.string.isRequired,
-  }).isRequired,
-  // must contain onMovieClick and it must be a function
-  onMovieClick: PropTypes.func.isRequired
+  }).isRequired
 };

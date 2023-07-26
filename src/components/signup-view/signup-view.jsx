@@ -26,7 +26,7 @@ export const SignupView = () => {
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
-        window.location.reload();
+        window.location.replace('/login');
       } else {
         alert("Signup failed");
       }
@@ -72,7 +72,6 @@ export const SignupView = () => {
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
-          required
         />
       </Form.Group>
       <Button variant="primary" type="submit">
