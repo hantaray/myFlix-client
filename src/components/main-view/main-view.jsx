@@ -15,7 +15,6 @@ export const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     if (!token) return;
@@ -90,20 +89,6 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView movies={movies} />
-                    {/* todo: */}
-                    {/* let similarMovies = movies.filter(movie => movie.genres[0].name === selectedMovie.genres[0].name
-      && movie.title !== selectedMovie.title);
-          <hr />
-          <h2>Similar Movies</h2>
-          {similarMovies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }}
-            />
-          ))} */}
                   </Col>
                 )}
               </>
