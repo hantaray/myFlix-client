@@ -102,11 +102,6 @@ export const ProfileView = ({ username, token, movies }) => {
     });
   };
 
-  // console.log(username)
-  // console.log(password)
-  // console.log(email)
-  // console.log(birthday)
-
   return (
     <>
       <Form onSubmit={handleSubmit}>
