@@ -3,13 +3,12 @@ import { Button, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ username, token, movies }) => {
+export const ProfileView = ({ username, token, favoriteMovies, updateUser }) => {
   const [updatedUsername, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [user, setUser] = useState({});
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   useEffect(() => {
     if (!token) return;
@@ -24,24 +23,8 @@ export const ProfileView = ({ username, token, movies }) => {
         setPassword(user.password);
         setEmail(user.email);
         setBirthday(user.birthday);
-        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
       });
   }, [token]);
-
-  const updateUser = () => {
-    if (!token) return;
-
-    fetch(`https://movie-api-zy6n.onrender.com/users/${updatedUsername}`, {
-
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
-        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
-      });
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -145,7 +128,7 @@ export const ProfileView = ({ username, token, movies }) => {
       <>
         {favoriteMovies.map((movie) => (
           <Col className="mb-4" key={movie.id} md={3}>
-            <MovieCard user={user} token={token} movie={movie} />
+            <MovieCard user={user} token={token} movie={movie} updateUser={updateUser} />
           </Col>
         ))}
       </>
