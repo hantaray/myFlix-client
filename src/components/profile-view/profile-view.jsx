@@ -70,6 +70,10 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
     });
   };
 
+  if (!birthday) {
+    birthday = "";
+  }
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
