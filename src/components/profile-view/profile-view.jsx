@@ -7,7 +7,8 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [email, setEmail] = useState(user.email);
-  const [birthday, setBirthday] = useState(user.birthday);
+  // check if birthday is set (not null)
+  const [birthday, setBirthday] = user.birthday ? user.birthday : useState("");
 
   const updateUserWithChangedData = (updatedUsername) => {
     if (!token) return;
