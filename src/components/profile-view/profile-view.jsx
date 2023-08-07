@@ -3,32 +3,13 @@ import { Button, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
 
-export const ProfileView = ({ username, token, movies }) => {
-  const [updatedUsername, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [user, setUser] = useState({});
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
+  const [username, setUsername] = useState(user.username);
+  const [password, setPassword] = useState(user.password);
+  const [email, setEmail] = useState(user.email);
+  const [birthday, setBirthday] = useState(user.birthday);
 
-  useEffect(() => {
-    if (!token) return;
-
-    fetch(`https://movie-api-zy6n.onrender.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then((response) => response.json())
-      .then((user) => {
-        setUser(user);
-        setUsername(user.username);
-        setPassword(user.password);
-        setEmail(user.email);
-        setBirthday(user.birthday);
-        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
-      });
-  }, [token]);
-
-  const updateUser = () => {
+  const updateUserWithChangedData = (updatedUsername) => {
     if (!token) return;
 
     fetch(`https://movie-api-zy6n.onrender.com/users/${updatedUsername}`, {
@@ -37,9 +18,7 @@ export const ProfileView = ({ username, token, movies }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
-        setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+        updateUser(user)
       });
   }
 
@@ -47,13 +26,13 @@ export const ProfileView = ({ username, token, movies }) => {
     event.preventDefault();
 
     const data = {
-      Username: updatedUsername,
+      Username: username,
       Password: password,
       Email: email,
       Birthday: birthday
     };
 
-    fetch(`https://movie-api-zy6n.onrender.com/users/${username}`, {
+    fetch(`https://movie-api-zy6n.onrender.com/users/${user.username}`, {
       method: "PUT",
       body: JSON.stringify(data),
       headers: {
@@ -62,9 +41,8 @@ export const ProfileView = ({ username, token, movies }) => {
       }
     }).then((response) => {
       if (response.ok) {
-        updateUser();
+        updateUserWithChangedData(username);
         alert("Update successful");
-        window.location.reload();
       } else {
         alert("Update failed");
       }
@@ -74,7 +52,7 @@ export const ProfileView = ({ username, token, movies }) => {
   const unregister = (event) => {
     event.preventDefault();
 
-    fetch(`https://movie-api-zy6n.onrender.com/users/${updatedUsername}`, {
+    fetch(`https://movie-api-zy6n.onrender.com/users/${user.username}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +60,7 @@ export const ProfileView = ({ username, token, movies }) => {
       }
     }).then((response) => {
       if (response.ok) {
-        setUser(null);
+        updateUser(null);
         localStorage.clear();
         alert("Successful unregistered");
         window.location.replace('/login');
@@ -99,8 +77,8 @@ export const ProfileView = ({ username, token, movies }) => {
           <Form.Label>Username:</Form.Label>
           <Form.Control
             type="text"
-            value={updatedUsername}
-            placeholder={updatedUsername}
+            value={username}
+            placeholder={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Group>
@@ -145,7 +123,7 @@ export const ProfileView = ({ username, token, movies }) => {
       <>
         {favoriteMovies.map((movie) => (
           <Col className="mb-4" key={movie.id} md={3}>
-            <MovieCard user={user} token={token} movie={movie} />
+            <MovieCard user={user} token={token} movie={movie} updateUser={updateUser} />
           </Col>
         ))}
       </>
