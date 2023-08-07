@@ -15,7 +15,6 @@ export const MovieCard = ({ user, token, movie, updateUser }) => {
   }, [user, movie.id]);
 
   function addToFav(movieTitle) {
-    console.log('movieTitle', movieTitle);
     fetch(
       `https://movie-api-zy6n.onrender.com/users/${user.username}/movies/${movieTitle}`,
       {
@@ -27,10 +26,8 @@ export const MovieCard = ({ user, token, movie, updateUser }) => {
       }
     )
       .then((response) => {
-        console.log('response', response);
         if (response.ok) {
           alert('Added to favorites');
-          // window.location.reload();
         } else {
           alert('Update failed');
         }
@@ -57,14 +54,12 @@ export const MovieCard = ({ user, token, movie, updateUser }) => {
       .then((response) => {
         if (response.ok) {
           alert('Removed from favorites');
-          // window.location.reload();
         } else {
           alert('Update failed');
         }
         return response.json();
       })
       .then((data) => {
-        console.log('data', data)
         // set is favorite to false and update the user after removing a favorite movie successfully
         setIsFavorite(false);
         updateUser(data);

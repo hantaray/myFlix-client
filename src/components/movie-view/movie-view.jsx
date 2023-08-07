@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ user, token, movies, updateUser }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
 
@@ -42,13 +42,16 @@ export const MovieView = ({ movies }) => {
           <Link
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              window.location.reload();
             }}
             id='link-style'
             to={`/movies/${movie._id}`}
           >
             <MovieCard
-              key={movie.id}
+              user={user}
+              token={token}
               movie={movie}
+              updateUser={updateUser}
             />
           </Link>
         ))}

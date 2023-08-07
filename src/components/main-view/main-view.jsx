@@ -44,8 +44,10 @@ export const MainView = () => {
   // update the user state and local storage
   const updateUser = (user) => {
     setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
+    }
   };
 
   return (
@@ -102,7 +104,7 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    <MovieView movies={movies} />
+                    <MovieView user={user} token={token} movies={movies} updateUser={updateUser} />
                   </Col>
                 )}
               </>
@@ -142,7 +144,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     <ProfileView
-                      username={user.username}
+                      user={user}
                       token={token}
                       favoriteMovies={favoriteMovies}
                       updateUser={updateUser}
