@@ -8,8 +8,13 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
   const [password, setPassword] = useState(user.password);
   const [email, setEmail] = useState(user.email);
   const [birthday, setBirthday] = useState(() => {
-    const bday = new Date(user.birthday).toLocaleDateString();
-    return bday;
+    if (user.birthday == null) {
+      return "";
+    }
+    else {
+      const bday = new Date(user.birthday).toLocaleDateString();
+      return bday;
+    }
   })
 
   const updateUserWithChangedData = (updatedUsername) => {
@@ -73,11 +78,6 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
       }
     });
   };
-
-  // set birthday to string if null
-  if (birthday == null) {
-    setBirthday("");
-  }
 
   return (
     <>
