@@ -6,7 +6,7 @@
 
 A Web-Application for movies, made with ReactJS. You can create a profile, search for movies, get more information and add them to your profile.
 
-The App is hosted on netlify and can befound [here](https://myflixone.netlify.app).
+The App is hosted on netlify and can be found [here](https://myflixone.netlify.app).
 
 ## Project Dependencies
 
