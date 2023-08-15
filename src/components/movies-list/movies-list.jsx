@@ -6,8 +6,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 export const MoviesList = (movies) => {
-  // const movies = useSelector((state) => state.movies.list);
-  console.log('movies', movies)
   const filter = useSelector((state) => state.movies.filter)
     .trim()
     .toLowerCase();

@@ -44,7 +44,6 @@ export const MovieView = () => {
           <Link
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-              // window.location.reload();
             }}
             id='link-style'
             to={`/movies/${movie._id}`}
