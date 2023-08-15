@@ -11,7 +11,6 @@ export const MovieCard = ({ movie }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
   const [isFavorite, setIsFavorite] = useState(false);
-  const favoriteMovies = useSelector((state) => state.movies.favList);
   const movies = useSelector((state) => state.movies.list);
 
   const dispatch = useDispatch();
@@ -45,7 +44,6 @@ export const MovieCard = ({ movie }) => {
       .then((data) => {
         // set is favorite to true and update the user after adding a favorite movie successfully
         setIsFavorite(true);
-        // updateUser(data);
         dispatch(setUser(data));
         dispatch(setFavMovies(movies.filter(m => data.favoriteMovies.includes(m.id))));
       });
@@ -73,7 +71,6 @@ export const MovieCard = ({ movie }) => {
       .then((data) => {
         // set is favorite to false and update the user after removing a favorite movie successfully
         setIsFavorite(false);
-        // updateUser(data);
         dispatch(setUser(data));
         dispatch(setFavMovies(movies.filter(m => data.favoriteMovies.includes(m.id))));
       });

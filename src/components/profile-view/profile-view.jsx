@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
-import { MovieCard } from "../movie-card/movie-card";
 import { MoviesList } from "../movies-list/movies-list";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 import { setToken } from "../../redux/reducers/user";
-import { setMovies } from "../../redux/reducers/movies";
-import { setFavMovies } from "../../redux/reducers/movies";
 
 export const ProfileView = (favoriteMovies) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token);
-  // const movies = useSelector((state) => state.user.token);
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [email, setEmail] = useState(user.email);
@@ -26,11 +22,6 @@ export const ProfileView = (favoriteMovies) => {
       return bday;
     }
   });
-  // const favoriteMovies = useSelector((state) => state.movies.favList);
-  // console.log('favoriteMovies', favoriteMovies)
-  // const [favoriteMovies, setFavoriteMovies] = useState(() => {
-  //   return movies.filter(m => user.favoriteMovies.includes(m.id))
-  // });
 
   const dispatch = useDispatch();
 
@@ -88,8 +79,6 @@ export const ProfileView = (favoriteMovies) => {
       if (response.ok) {
         dispatch(setUser(null));
         dispatch(setToken(null));
-        // updateUser(null);
-        // localStorage.clear();
         alert("Successful unregistered");
         window.location.replace('/login');
       } else {
@@ -150,11 +139,6 @@ export const ProfileView = (favoriteMovies) => {
 
       <>
         {<MoviesList movies={favoriteMovies.favoriteMovies} />}
-        {/* {favoriteMovies.map((movie) => (
-          <Col className="mb-4" key={movie.id} md={3}>
-            <MovieCard movie={movie} />
-          </Col>
-        ))} */}
       </>
 
       <Form onSubmit={unregister}>
@@ -162,7 +146,6 @@ export const ProfileView = (favoriteMovies) => {
           Unregister
         </Button>
       </Form>
-
     </>
   );
 };

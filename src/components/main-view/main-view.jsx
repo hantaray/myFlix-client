@@ -1,28 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { MovieCard } from '../movie-card/movie-card';
 import { MoviesList } from "../movies-list/movies-list";
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { SignupView } from '../signup-view/signup-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { ProfileView } from '../profile-view/profile-view';
-import { MoviesFilter } from "../movies-filter/movies-filter.jsx";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 import { setFavMovies } from "../../redux/reducers/movies";
-import { setUser } from "../../redux/reducers/user";
 
 export const MainView = () => {
-  // const storedUser = JSON.parse(localStorage.getItem('user'));
-  // const storedToken = localStorage.getItem('token');
-  // const [user, setUser] = useState(storedUser ? storedUser : null);
   const user = useSelector((state) => state.user.user);
-  // console.log('user', user.username)
-  // const [token, setToken] = useState(storedToken ? storedToken : null);
   const token = useSelector((state) => state.user.token);
   const movies = useSelector((state) => state.movies.list);
   const favoriteMovies = useSelector((state) => state.movies.favList);
@@ -49,19 +41,9 @@ export const MainView = () => {
         });
 
         dispatch(setMovies(moviesFromApi));
-        // dispatch(setFavMovies(moviesFromApi.filter(m => user.favoriteMovies.includes(m.id))));
         dispatch(setFavMovies(moviesFromApi.filter(m => user.favoriteMovies.includes(m.id))));
       });
   }, [token]);
-
-  // update the user state and local storage
-  const updateUser = (user) => {
-    setUser(user);
-    if (user) {
-      // localStorage.setItem('user', JSON.stringify(user));
-      // setFavoriteMovies(movies.filter(m => user.favoriteMovies.includes(m.id)));
-    }
-  };
 
   return (
     <BrowserRouter>
@@ -112,31 +94,6 @@ export const MainView = () => {
               </>
             }
           />
-          {/* <Route
-            path='/'
-            element={
-              <>
-                {!user ? (
-                  <Navigate to='/login' replace />
-                ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
-                ) : (
-                  <>
-                    {movies.map((movie) => (
-                      <Col className='mb-4' key={movie.id} md={3}>
-                        <MovieCard
-                          user={user}
-                          token={token}
-                          movie={movie}
-                          updateUser={updateUser}
-                        />
-                      </Col>
-                    ))}
-                  </>
-                )}
-              </>
-            }
-          /> */}
           <Route
             path="/"
             element={
