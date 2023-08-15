@@ -2,9 +2,11 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
+import { useSelector } from "react-redux";
 
-export const MovieView = ({ user, token, movies, updateUser }) => {
+export const MovieView = () => {
   const { movieId } = useParams();
+  const movies = useSelector((state) => state.movies.list);
   const movie = movies.find((m) => m.id === movieId);
 
   const similarMovies = () =>
@@ -42,16 +44,14 @@ export const MovieView = ({ user, token, movies, updateUser }) => {
           <Link
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-              window.location.reload();
+              // window.location.reload();
             }}
             id='link-style'
             to={`/movies/${movie._id}`}
           >
             <MovieCard
-              user={user}
-              token={token}
+              key={movie.id}
               movie={movie}
-              updateUser={updateUser}
             />
           </Link>
         ))}
