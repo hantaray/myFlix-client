@@ -2,8 +2,18 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
 
 import { MovieCard } from "../movie-card/movie-card";
+import { MoviesList } from "../movies-list/movies-list";
 
-export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/reducers/user";
+import { setToken } from "../../redux/reducers/user";
+import { setMovies } from "../../redux/reducers/movies";
+import { setFavMovies } from "../../redux/reducers/movies";
+
+export const ProfileView = (favoriteMovies) => {
+  const user = useSelector((state) => state.user.user);
+  const token = useSelector((state) => state.user.token);
+  // const movies = useSelector((state) => state.user.token);
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [email, setEmail] = useState(user.email);
@@ -15,7 +25,14 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
       const bday = new Date(user.birthday).toLocaleDateString();
       return bday;
     }
-  })
+  });
+  // const favoriteMovies = useSelector((state) => state.movies.favList);
+  // console.log('favoriteMovies', favoriteMovies)
+  // const [favoriteMovies, setFavoriteMovies] = useState(() => {
+  //   return movies.filter(m => user.favoriteMovies.includes(m.id))
+  // });
+
+  const dispatch = useDispatch();
 
   const updateUserWithChangedData = (updatedUsername) => {
     if (!token) return;
@@ -26,7 +43,7 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
     })
       .then((response) => response.json())
       .then((user) => {
-        updateUser(user)
+        dispatch(setUser(user));
       });
   }
 
@@ -69,8 +86,10 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
       }
     }).then((response) => {
       if (response.ok) {
-        updateUser(null);
-        localStorage.clear();
+        dispatch(setUser(null));
+        dispatch(setToken(null));
+        // updateUser(null);
+        // localStorage.clear();
         alert("Successful unregistered");
         window.location.replace('/login');
       } else {
@@ -130,11 +149,12 @@ export const ProfileView = ({ user, token, favoriteMovies, updateUser }) => {
       </Form>
 
       <>
-        {favoriteMovies.map((movie) => (
+        {<MoviesList movies={favoriteMovies.favoriteMovies} />}
+        {/* {favoriteMovies.map((movie) => (
           <Col className="mb-4" key={movie.id} md={3}>
-            <MovieCard user={user} token={token} movie={movie} updateUser={updateUser} />
+            <MovieCard movie={movie} />
           </Col>
-        ))}
+        ))} */}
       </>
 
       <Form onSubmit={unregister}>
