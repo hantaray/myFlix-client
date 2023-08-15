@@ -16,4 +16,4 @@ The project uses the following technologies:
 
 ## API
 
-The project API for the app can be found here [here](https://github.com/hantaray/movie_api).
+The project API for the app can be found [here](https://github.com/hantaray/movie_api).
