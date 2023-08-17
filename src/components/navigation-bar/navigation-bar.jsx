@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/reducers/user";
 
 export const NavigationBar = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user) || JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   return (
     <Navbar bg="light" expand="lg">
@@ -33,7 +33,10 @@ export const NavigationBar = () => {
                 <Nav.Link as={Link} to="/users">
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={() => dispatch(setUser(null))}>
+                <Nav.Link onClick={() => {
+                  dispatch(setUser(null));
+                  localStorage.clear()
+                }}>
                   Logout
                 </Nav.Link>
               </>
