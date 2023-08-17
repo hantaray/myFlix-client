@@ -14,8 +14,8 @@ import { setMovies } from "../../redux/reducers/movies";
 import { setFavMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user) || JSON.parse(localStorage.getItem("user"));
+  const token = useSelector((state) => state.user.token) || localStorage.getItem("token");
   const movies = useSelector((state) => state.movies.list);
   const favoriteMovies = useSelector((state) => state.movies.favList);
 
@@ -41,6 +41,7 @@ export const MainView = () => {
         });
 
         dispatch(setMovies(moviesFromApi));
+        console.log('user', user)
         dispatch(setFavMovies(moviesFromApi.filter(m => user.favoriteMovies.includes(m.id))));
       });
   }, [token]);

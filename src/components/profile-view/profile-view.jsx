@@ -8,8 +8,8 @@ import { setUser } from "../../redux/reducers/user";
 import { setToken } from "../../redux/reducers/user";
 
 export const ProfileView = (favoriteMovies) => {
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user.user) || JSON.parse(localStorage.getItem("user"));
+  const token = useSelector((state) => state.user.token) || localStorage.getItem("token");
   const [username, setUsername] = useState(user.username);
   const [password, setPassword] = useState(user.password);
   const [email, setEmail] = useState(user.email);
