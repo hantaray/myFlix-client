@@ -41,7 +41,6 @@ export const MainView = () => {
         });
 
         dispatch(setMovies(moviesFromApi));
-        console.log('user', user)
         dispatch(setFavMovies(moviesFromApi.filter(m => user.favoriteMovies.includes(m.id))));
       });
   }, [token]);

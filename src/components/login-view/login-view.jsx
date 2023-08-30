@@ -30,11 +30,10 @@ export const LoginView = () => {
         if (data.user) {
           dispatch(setUser(data.user));
           dispatch(setToken(data.token));
-          console.log('token', data.token)
-          localStorage.setItem("user", JSON.stringify(data.user));
+          // localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
         } else {
-          alert("User or Password incorrect");
+          alert(data.message);
         }
       })
       .catch((e) => {
